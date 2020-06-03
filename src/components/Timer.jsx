@@ -98,8 +98,9 @@ class Timer extends React.Component {
 
   decreaseTimerBySecond = () => {
     const { currentTimerValue, timerStatus } = this.state;
-    if (timerStatus === 'disabled') this.timerPause();
-    else if (currentTimerValue === 0) {
+    if (timerStatus === 'disabled') {
+      this.timerPause();
+    } else if (currentTimerValue === 0) {
       this.timerPause();
       const audio = new Audio(timerDoneSignal);
       audio.volume = 0.2;

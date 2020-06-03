@@ -20,16 +20,18 @@ const CountdownResult = (props) => {
     return Math.floor((passedTime / startTimerValue) * 100);
   };
 
+  const strokeColor = {
+    '0%': '#108ee9',
+    '100%': '#87d068',
+  };
+
   return (
     <div className="countdown-result">
       <div className="countdown-result-progress-bar">
         <Progress
           type="circle"
           percent={percentOfProgress()}
-          strokeColor={{
-            '0%': '#108ee9',
-            '100%': '#87d068',
-          }}
+          strokeColor={strokeColor}
           format={() => timerStr()}
         />
       </div>
