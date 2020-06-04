@@ -1,8 +1,8 @@
 import React from 'react';
-import CountdownControlPanel from './countdown/control-panel';
-import CountdownResult from './countdown/result-panel';
-import CountdownControlButtons from './countdown/control-buttons';
-import timerDoneSignal from './countdown/timer-done-signal.mp3';
+import CountdownControlPanel from './control-panel';
+import CountdownResult from './result-panel';
+import CountdownControlButtons from './control-buttons';
+import timerDoneSignal from './done-signal.mp3';
 
 const getValidMinutes = (minutes) => {
   if (minutes > 720) return 720;
@@ -21,7 +21,7 @@ const defaultState = {
   UIStartButtonText: 'Start', // Start, Continue, Pause
   startTimerValue: 0,
   currentTimerValue: 0,
-}
+};
 
 class Timer extends React.Component {
   constructor(props) {
@@ -60,7 +60,6 @@ class Timer extends React.Component {
   };
 
   changeTimerStatus = (timerStatus, startTimerValue) => {
-
     switch (timerStatus) {
       case 'disabled': {
         this.setState(() => ({
@@ -87,7 +86,7 @@ class Timer extends React.Component {
       case 'done': {
         this.setState(() => ({
           currentTimerValue: startTimerValue,
-          UIStartButtonText: 'Pause'
+          UIStartButtonText: 'Pause',
         }));
         this.setTimerActive();
         return 'active';
@@ -135,7 +134,7 @@ class Timer extends React.Component {
     const updateTimer = () => {
       this.decreaseTimer();
       this.timerID = setTimeout(updateTimer, 1000);
-    }
+    };
     updateTimer();
   };
 
@@ -144,7 +143,9 @@ class Timer extends React.Component {
   };
 
   render() {
-    const { startTimerValue, timerStatus, currentTimerValue, UIStartButtonText } = this.state;
+    const {
+      startTimerValue, timerStatus, currentTimerValue, UIStartButtonText,
+    } = this.state;
 
     return (
       <div>

@@ -32,7 +32,6 @@ const CountdownControlButtons = (props) => {
 };
 
 CountdownControlButtons.propTypes = {
-  timerStatus: propTypes.string,
   UIStartButtonText: propTypes.string,
   startTimerValue: propTypes.number,
   handleOnSwitchTimerStatus: propTypes.func,
@@ -40,7 +39,6 @@ CountdownControlButtons.propTypes = {
 };
 
 CountdownControlButtons.defaultProps = {
-  timerStatus: 'disabled',
   UIStartButtonText: 'start',
   startTimerValue: 0,
   handleOnSwitchTimerStatus: null,

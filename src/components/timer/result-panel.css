@@ -1,0 +1,25 @@
+.timer-result-progress-bar {
+  position: relative;
+  margin-bottom: 5px;
+}
+
+.timer-result-value {
+  font-size: 20px;
+  margin: -70px 0px 0px 20px;
+  color: red;
+  position: absolute;
+  font-weight: bold;
+}
+
+.timer-result-value-active {
+  color: forestgreen;
+}
+
+.timer-spiner {
+  font-size: 100px;
+  color: orange;
+}
+
+.timer-spiner-disabled {
+  opacity: 0;
+}
