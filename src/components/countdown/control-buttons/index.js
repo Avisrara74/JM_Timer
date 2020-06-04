@@ -4,24 +4,9 @@ import { Button } from 'antd';
 import 'antd/dist/antd.css';
 
 const CountdownControlButtons = (props) => {
-  const { timerStatus, startTimerValue, handleOnSwitchTimerStatus, handleOnResetTimer } = props;
-
-  const buttonText = () => {
-    switch (timerStatus) {
-      case 'disabled': {
-        return 'Start';
-      }
-      case 'pause': {
-        return 'Continue';
-      }
-      case 'done': {
-        return 'Start';
-      }
-      default: {
-        return 'Pause';
-      }
-    }
-  };
+  const {
+    startTimerValue, handleOnSwitchTimerStatus, handleOnResetTimer, UIStartButtonText,
+  } = props;
 
   return (
     <div className="countdown-control-buttons">
@@ -31,7 +16,7 @@ const CountdownControlButtons = (props) => {
         onClick={handleOnSwitchTimerStatus}
         disabled={startTimerValue === 0}
       >
-        {buttonText()}
+        {UIStartButtonText}
       </Button>
 
       <Button
@@ -48,9 +33,18 @@ const CountdownControlButtons = (props) => {
 
 CountdownControlButtons.propTypes = {
   timerStatus: propTypes.string,
+  UIStartButtonText: propTypes.string,
   startTimerValue: propTypes.number,
   handleOnSwitchTimerStatus: propTypes.func,
   handleOnResetTimer: propTypes.func,
+};
+
+CountdownControlButtons.defaultProps = {
+  timerStatus: 'disabled',
+  UIStartButtonText: 'start',
+  startTimerValue: 0,
+  handleOnSwitchTimerStatus: null,
+  handleOnResetTimer: null,
 };
 
 export default CountdownControlButtons;

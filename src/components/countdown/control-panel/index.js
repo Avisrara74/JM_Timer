@@ -5,14 +5,15 @@ import 'antd/dist/antd.css';
 
 const CountdownControlPanel = (props) => {
   const {
-    minutes,
-    seconds,
     startTimerValue,
     timerStatus,
     handleOnMinutesInputChange,
     handleOnSecondsInputChange,
     handleOnSliderChange,
   } = props;
+
+  const minutes = Math.floor(startTimerValue / 60);
+  const seconds = startTimerValue % 60;
 
   const switchPanelStatus = timerStatus === 'active' || timerStatus === 'pause';
   return (
@@ -52,13 +53,19 @@ const CountdownControlPanel = (props) => {
 };
 
 CountdownControlPanel.propTypes = {
-  minutes: propTypes.number,
-  seconds: propTypes.number,
   startTimerValue: propTypes.number,
   timerStatus: propTypes.string,
   handleOnMinutesInputChange: propTypes.func,
   handleOnSecondsInputChange: propTypes.func,
   handleOnSliderChange: propTypes.func,
+};
+
+CountdownControlPanel.defaultProps = {
+  startTimerValue: 0,
+  timerStatus: 'disabled',
+  handleOnMinutesInputChange: null,
+  handleOnSecondsInputChange: null,
+  handleOnSliderChange: null,
 };
 
 export default CountdownControlPanel;

@@ -4,8 +4,11 @@
     "\\public",
     "\\src",
     "\\src\\components",
-    "\\src\\components\\Countdown"
+    "\\src\\components\\countdown",
+    "\\src\\components\\countdown\\control-buttons",
+    "\\src\\components\\countdown\\control-panel",
+    "\\src\\components\\countdown\\result-panel"
   ],
-  "SelectedNode": "\\src\\index.js",
+  "SelectedNode": "\\.eslintrc.json",
   "PreviewInSolutionExplorer": false
 }

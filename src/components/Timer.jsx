@@ -1,136 +1,154 @@
 import React from 'react';
-import CountdownControlPanel from './Countdown/control-panel/control-panel';
-import CountdownResult from './Countdown/result-panel/result-panel';
-import CountdownControlButtons from './Countdown/control-buttons/control-buttons';
-import timerDoneSignal from './Countdown/timer-done-signal.mp3';
+import CountdownControlPanel from './countdown/control-panel';
+import CountdownResult from './countdown/result-panel';
+import CountdownControlButtons from './countdown/control-buttons';
+import timerDoneSignal from './countdown/timer-done-signal.mp3';
+
+const getValidMinutes = (minutes) => {
+  if (minutes > 720) return 720;
+  if (typeof minutes === 'string') return 0;
+  return minutes;
+};
+
+const getValidSeconds = (minutes, seconds) => {
+  if (seconds > 59) return 59;
+  if (typeof seconds === 'string' || minutes >= 720) return 0;
+  return seconds;
+};
+
+const defaultState = {
+  timerStatus: 'disabled', // active, pause, disabled, done
+  UIStartButtonText: 'Start', // Start, Continue, Pause
+  startTimerValue: 0,
+  currentTimerValue: 0,
+}
 
 class Timer extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      currentTimerValue: 0,
-      minutes: 0,
-      seconds: 0,
-      startTimerValue: 0,
-      timerStatus: 'disabled', // active, pause, disabled, done
-    };
+    this.state = defaultState;
   }
 
   handleOnMinutesInputChange = (minutes) => {
-    const { seconds } = this.state;
-    const getValidMinutes = () => {
-      if (minutes > 720) return 720;
-      if (typeof minutes === 'string') return 0;
-      return minutes;
-    };
+    const { startTimerValue } = this.state;
+    const seconds = startTimerValue % 60;
 
-    const newStartTimerValue = getValidMinutes() * 60 + seconds;
-    this.setState({
-      minutes: getValidMinutes(),
+    const newStartTimerValue = getValidMinutes(minutes) * 60 + seconds;
+
+    this.setState(() => ({
       startTimerValue: newStartTimerValue,
-    });
+      timerStatus: 'disabled',
+    }));
   };
 
   handleOnSecondsInputChange = (seconds) => {
-    const { minutes } = this.state;
-    const getValidSeconds = () => {
-      if (seconds > 59) return 59;
-      if (typeof seconds === 'string' || minutes >= 720) return 0;
-      return seconds;
-    };
+    const { startTimerValue } = this.state;
+    const minutes = Math.floor(startTimerValue / 60);
 
-    const newStartTimerValue = minutes * 60 + getValidSeconds();
-    this.setState({
-      seconds: getValidSeconds(),
+    const newStartTimerValue = minutes * 60 + getValidSeconds(minutes, seconds);
+    this.setState(() => ({
       startTimerValue: newStartTimerValue,
-    });
+      timerStatus: 'disabled',
+    }));
   };
 
   handleOnSliderChange = (sliderValue) => {
-    const minutes = Math.floor(sliderValue / 60);
-    const seconds = sliderValue - minutes * 60;
-    this.setState({
-      minutes,
-      seconds,
+    this.setState(() => ({
       startTimerValue: sliderValue,
-    });
+      timerStatus: 'disabled',
+    }));
+  };
+
+  changeTimerStatus = (timerStatus, startTimerValue) => {
+
+    switch (timerStatus) {
+      case 'disabled': {
+        this.setState(() => ({
+          currentTimerValue: startTimerValue,
+          UIStartButtonText: 'Pause',
+        }));
+        this.setTimerActive();
+        return 'active';
+      }
+      case 'active': {
+        this.setTimerPause();
+        this.setState(() => ({
+          UIStartButtonText: 'Continue',
+        }));
+        return 'pause';
+      }
+      case 'pause': {
+        this.setTimerActive();
+        this.setState(() => ({
+          UIStartButtonText: 'Pause',
+        }));
+        return 'active';
+      }
+      case 'done': {
+        this.setState(() => ({
+          currentTimerValue: startTimerValue,
+          UIStartButtonText: 'Pause'
+        }));
+        this.setTimerActive();
+        return 'active';
+      }
+      default:
+        return 'active';
+    }
   };
 
   handleOnSwitchTimerStatus = () => {
     const { timerStatus, startTimerValue } = this.state;
-
-    const newTimerStatus = () => {
-      switch (timerStatus) {
-        case 'disabled': {
-          this.setState({ currentTimerValue: startTimerValue });
-          this.timerActive();
-          return 'active';
-        }
-        case 'active': {
-          this.timerPause();
-          return 'pause';
-        }
-        case 'pause': {
-          this.timerActive();
-          return 'active';
-        }
-        case 'done': {
-          this.setState({ currentTimerValue: startTimerValue });
-          this.timerActive();
-          return 'active';
-        }
-        default:
-          return 'active';
-      }
-    };
-    this.setState({ timerStatus: newTimerStatus() });
+    const changeTimerStatus = this.changeTimerStatus(timerStatus, startTimerValue);
+    this.setState(() => ({
+      timerStatus: changeTimerStatus,
+    }));
   };
 
   handleOnResetTimer = () => {
-    this.setState({
-      timerStatus: 'disabled',
-      minutes: 0,
-      seconds: 0,
-      startTimerValue: 0,
-      currentTimerValue: 0,
-    });
+    this.setState(() => ({ ...defaultState }));
   };
 
-  decreaseTimerBySecond = () => {
+  decreaseTimer = () => {
     const { currentTimerValue, timerStatus } = this.state;
-    if (timerStatus === 'disabled') {
-      this.timerPause();
-    } else if (currentTimerValue === 0) {
-      this.timerPause();
+    if (timerStatus !== 'active') {
+      this.setTimerPause();
+      return;
+    }
+
+    if (currentTimerValue <= 0) {
+      this.setTimerPause();
       const audio = new Audio(timerDoneSignal);
       audio.volume = 0.2;
       audio.play();
-      this.setState({ timerStatus: 'done' });
-    } else if (timerStatus === 'active') {
-      this.setState({ currentTimerValue: currentTimerValue - 1 });
+      this.setState(() => ({ timerStatus: 'done', UIStartButtonText: 'Start' }));
+    } else {
+      this.setState(() => ({ currentTimerValue: currentTimerValue - 1 }));
     }
   };
 
-  timerPause = () => {
-    clearInterval(this.timerID);
+  setTimerPause = () => {
+    clearTimeout(this.timerID);
   };
 
-  timerActive = () => {
-    this.timerID = setInterval(() => this.decreaseTimerBySecond(), 1000);
+  setTimerActive = () => {
+    const updateTimer = () => {
+      this.decreaseTimer();
+      this.timerID = setTimeout(updateTimer, 1000);
+    }
+    updateTimer();
   };
 
   componentWillUnmount = () => {
-    this.timerPause();
+    this.setTimerPause();
   };
 
   render() {
-    const { minutes, seconds, startTimerValue, timerStatus, currentTimerValue } = this.state;
+    const { startTimerValue, timerStatus, currentTimerValue, UIStartButtonText } = this.state;
 
     return (
       <div>
         <CountdownControlPanel
-          minutes={minutes}
-          seconds={seconds}
           startTimerValue={startTimerValue}
           timerStatus={timerStatus}
           handleOnMinutesInputChange={this.handleOnMinutesInputChange}
@@ -143,7 +161,7 @@ class Timer extends React.Component {
           timerStatus={timerStatus}
         />
         <CountdownControlButtons
-          timerStatus={timerStatus}
+          UIStartButtonText={UIStartButtonText}
           startTimerValue={startTimerValue}
           handleOnSwitchTimerStatus={this.handleOnSwitchTimerStatus}
           handleOnResetTimer={this.handleOnResetTimer}

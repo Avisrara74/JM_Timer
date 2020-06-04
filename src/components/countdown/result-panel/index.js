@@ -6,11 +6,14 @@ import 'antd/dist/antd.css';
 const CountdownResult = (props) => {
   const { startTimerValue, currentTimerValue, timerStatus } = props;
 
-  const timerStr = () => {
+  const timerValue = () => {
     const min = Math.floor(currentTimerValue / 60);
     const sec = currentTimerValue % 60;
+    const minutesVisibleFormat = (min >= 10) ? min : `0${min}`;
+    const secondsVisibleFormat = (sec >= 10) ? sec : `0${sec}`;
+
     if (currentTimerValue === 0 && timerStatus === 'done') return 'Done';
-    return `${min} : ${sec}`;
+    return `${minutesVisibleFormat} : ${secondsVisibleFormat}`;
   };
 
   const percentOfProgress = () => {
@@ -32,7 +35,7 @@ const CountdownResult = (props) => {
           type="circle"
           percent={percentOfProgress()}
           strokeColor={strokeColor}
-          format={() => timerStr()}
+          format={() => timerValue()}
         />
       </div>
     </div>
@@ -43,6 +46,12 @@ CountdownResult.propTypes = {
   startTimerValue: propTypes.number,
   currentTimerValue: propTypes.number,
   timerStatus: propTypes.string,
+};
+
+CountdownResult.defaultProps = {
+  startTimerValue: 0,
+  currentTimerValue: 0,
+  timerStatus: 'disabled',
 };
 
 export default CountdownResult;

@@ -17,8 +17,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "lint": "eslint .",
-    "lint:fix": "eslint --fix .",
+    "lint": "eslint ./src",
+    "lint:fix": "eslint --fix ./src",
     "format": "prettier --write \"**/*.+(js|jsx|json|yml|yaml|css|md|vue)\"",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
@@ -53,8 +53,8 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run lint",
-      "pre-push": "npm run lint"
+      "pre-commit": "npm run lint:fix",
+      "pre-push": "npm run lint:fix"
     }
   }
 }

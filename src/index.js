@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Timer from './components/Timer';
+import Timer from './components/timer';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
 
