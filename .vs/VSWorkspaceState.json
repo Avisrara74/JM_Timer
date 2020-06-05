@@ -5,10 +5,8 @@
     "\\src",
     "\\src\\components",
     "\\src\\components\\countdown",
-    "\\src\\components\\countdown\\control-buttons",
-    "\\src\\components\\countdown\\control-panel",
-    "\\src\\components\\countdown\\result-panel"
+    "\\src\\components\\timer"
   ],
-  "SelectedNode": "\\.eslintrc.json",
+  "SelectedNode": "\\src\\components\\timer\\index.js",
   "PreviewInSolutionExplorer": false
 }

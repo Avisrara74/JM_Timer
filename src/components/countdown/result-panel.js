@@ -1,20 +1,13 @@
 import React from 'react';
 import propTypes from 'prop-types';
+import { getTimerValue } from '../result-panel-component-funcs';
 import { Progress } from 'antd';
 import 'antd/dist/antd.css';
 
 const CountdownResult = (props) => {
   const { startTimerValue, currentTimerValue, timerStatus } = props;
 
-  const timerValue = () => {
-    const min = Math.floor(currentTimerValue / 60);
-    const sec = currentTimerValue % 60;
-    const minutesVisibleFormat = (min >= 10) ? min : `0${min}`;
-    const secondsVisibleFormat = (sec >= 10) ? sec : `0${sec}`;
-
-    if (currentTimerValue === 0 && timerStatus === 'done') return 'Done';
-    return `${minutesVisibleFormat} : ${secondsVisibleFormat}`;
-  };
+  const timerValue = getTimerValue(currentTimerValue);
 
   const percentOfProgress = () => {
     if (timerStatus === 'disabled') return 0;
@@ -35,7 +28,7 @@ const CountdownResult = (props) => {
           type="circle"
           percent={percentOfProgress()}
           strokeColor={strokeColor}
-          format={() => timerValue()}
+          format={() => timerValue}
         />
       </div>
     </div>
