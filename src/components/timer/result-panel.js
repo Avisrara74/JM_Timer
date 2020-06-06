@@ -1,8 +1,8 @@
 import React from 'react';
 import propTypes from 'prop-types';
-import { getTimerValue } from '../result-panel-component-funcs';
 import { Spin } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
+import getTimerValue from '../result-panel-component-funcs';
 import 'antd/dist/antd.css';
 import './result-panel.css';
 

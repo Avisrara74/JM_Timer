@@ -1,13 +1,12 @@
 import React from 'react';
 import propTypes from 'prop-types';
-import { getTimerValue } from '../result-panel-component-funcs';
 import { Progress } from 'antd';
+import getTimerValue from '../result-panel-component-funcs';
 import 'antd/dist/antd.css';
 
 const CountdownResult = (props) => {
   const { startTimerValue, currentTimerValue, timerStatus } = props;
-
-  const timerValue = getTimerValue(currentTimerValue);
+  const timerValue = getTimerValue(currentTimerValue, timerStatus);
 
   const percentOfProgress = () => {
     if (timerStatus === 'disabled') return 0;
