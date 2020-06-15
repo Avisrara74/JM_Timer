@@ -2,7 +2,6 @@ import React from 'react';
 import TimerResultPanel from './result-panel';
 import TimerControlButtons from './control-buttons';
 
-
 const defaultState = {
   timerStatus: 'disabled', // active, pause, disabled
   UIStartButtonText: 'Start', // Start, Continue, Pause
@@ -86,10 +85,7 @@ class Timer extends React.Component {
 
     return (
       <div>
-        <TimerResultPanel
-          currentTimerValue={currentTimerValue}
-          timerStatus={timerStatus}
-        />
+        <TimerResultPanel currentTimerValue={currentTimerValue} timerStatus={timerStatus} />
         <TimerControlButtons
           UIStartButtonText={UIStartButtonText}
           currentTimerValue={currentTimerValue}

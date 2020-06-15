@@ -5,7 +5,10 @@ import 'antd/dist/antd.css';
 
 const CountdownControlButtons = (props) => {
   const {
-    startTimerValue, handleOnSwitchTimerStatus, handleOnResetTimer, UIStartButtonText,
+    startTimerValue,
+    handleOnSwitchTimerStatus,
+    handleOnResetTimer,
+    UIStartButtonText,
   } = props;
 
   return (

@@ -1,7 +1,7 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import { Progress } from 'antd';
-import getTimerValue from '../result-panel-component-funcs';
+import getTimerValue from '../helper';
 import 'antd/dist/antd.css';
 
 const CountdownResult = (props) => {

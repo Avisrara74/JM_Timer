@@ -2,21 +2,20 @@ import React from 'react';
 import propTypes from 'prop-types';
 import { Spin } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
-import getTimerValue from '../result-panel-component-funcs';
+import formatterTime from '../helper';
 import 'antd/dist/antd.css';
 import './result-panel.css';
 
 const TimerResult = (props) => {
   const { currentTimerValue, timerStatus } = props;
 
-  const timerValue = getTimerValue(currentTimerValue);
+  const timerValue = formatterTime(currentTimerValue);
 
-  const spinerClassNames = (timerStatus === 'active')
-    ? 'timer-spiner' : 'timer-spiner timer-spiner-disabled';
+  const spinerClassNames = timerStatus === 'active' ? 'timer-spiner' : 'timer-spiner timer-spiner-disabled';
 
   const antIcon = <LoadingOutlined className={spinerClassNames} spin />;
 
-  const timerClassNames = (timerStatus === 'active')
+  const timerClassNames = timerStatus === 'active'
     ? 'timer-result-value timer-result-value-active'
     : 'timer-result-value';
 
@@ -24,9 +23,7 @@ const TimerResult = (props) => {
     <div className="timer-result">
       <div className="timer-result-progress-bar">
         <Spin indicator={antIcon} />
-        <div className={timerClassNames}>
-          {timerValue}
-        </div>
+        <div className={timerClassNames}>{timerValue}</div>
       </div>
     </div>
   );

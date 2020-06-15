@@ -4,25 +4,15 @@ import { Button } from 'antd';
 import 'antd/dist/antd.css';
 
 const TimerControlButtons = (props) => {
-  const {
-    handleOnSwitchTimerStatus, handleOnResetTimer, UIStartButtonText,
-  } = props;
+  const { handleOnSwitchTimerStatus, handleOnResetTimer, UIStartButtonText } = props;
 
   return (
     <div className="timer-control-buttons">
-      <Button
-        type="primary"
-        size="large"
-        onClick={handleOnSwitchTimerStatus}
-      >
+      <Button type="primary" size="large" onClick={handleOnSwitchTimerStatus}>
         {UIStartButtonText}
       </Button>
 
-      <Button
-        type="danger"
-        size="large"
-        onClick={handleOnResetTimer}
-      >
+      <Button type="danger" size="large" onClick={handleOnResetTimer}>
         Reset
       </Button>
     </div>
