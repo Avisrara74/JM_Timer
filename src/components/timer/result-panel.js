@@ -11,13 +11,15 @@ const TimerResult = (props) => {
 
   const timerValue = formatterTime(currentTimerValue);
 
-  const spinerClassNames = timerStatus === 'active' ? 'timer-spiner' : 'timer-spiner timer-spiner-disabled';
+  const spinerClassNames =
+    timerStatus === 'active' ? 'timer-spiner' : 'timer-spiner timer-spiner-disabled';
 
   const antIcon = <LoadingOutlined className={spinerClassNames} spin />;
 
-  const timerClassNames = timerStatus === 'active'
-    ? 'timer-result-value timer-result-value-active'
-    : 'timer-result-value';
+  const timerClassNames =
+    timerStatus === 'active'
+      ? 'timer-result-value timer-result-value-active'
+      : 'timer-result-value';
 
   return (
     <div className="timer-result">

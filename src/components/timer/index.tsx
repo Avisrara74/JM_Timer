@@ -1,12 +1,11 @@
 import * as React from 'react';
 import TimerResultPanel from './result-panel';
-// @ts-ignore
 import TimerControlButtons from './control-buttons.tsx';
 
 interface State {
-  timerStatus: string,
-  UIStartButtonText: string,
-  currentTimerValue: number,
+  timerStatus: string;
+  UIStartButtonText: string;
+  currentTimerValue: number;
 }
 
 const defaultState: State = {
@@ -15,7 +14,7 @@ const defaultState: State = {
   currentTimerValue: 0,
 };
 
-class Timer extends React.Component <any, State> {
+class Timer extends React.Component<any, State> {
   timerID: any;
 
   constructor(props: any) {

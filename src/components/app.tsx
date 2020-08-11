@@ -1,8 +1,6 @@
 import * as React from 'react';
 import { Tabs } from 'antd';
-// @ts-ignore
 import Timer from './timer/index.tsx';
-// @ts-ignore
 import Countdown from './countdown/index.tsx';
 import 'antd/dist/antd.css';
 

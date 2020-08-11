@@ -3,8 +3,6 @@ import CountdownControlPanel from './control-panel';
 import CountdownResult from './result-panel';
 import CountdownControlButtons from './control-buttons';
 
-const timerDoneSignal = require('./done-signal.mp3');
-
 const getValidMinutes = (minutes: number | string) => {
   if (minutes > 720) return 720;
   if (typeof minutes === 'string') return 0;
@@ -18,10 +16,10 @@ const getValidSeconds = (minutes: number, seconds: number | string) => {
 };
 
 interface State {
-  timerStatus: string,
-  UIStartButtonText: string,
-  startTimerValue: number,
-  currentTimerValue: number,
+  timerStatus: string;
+  UIStartButtonText: string;
+  startTimerValue: number;
+  currentTimerValue: number;
 }
 
 const defaultState: State = {
@@ -127,9 +125,9 @@ class Timer extends React.Component<null, State> {
 
     if (currentTimerValue <= 0) {
       this.setTimerPause();
-      const audio = new Audio(timerDoneSignal);
-      audio.volume = 0.2;
-      audio.play();
+      const timerDoneSignal = new Audio('./done-signal.mp3');
+      timerDoneSignal.volume = 0.2;
+      timerDoneSignal.play();
       this.setState(() => ({ timerStatus: 'done', UIStartButtonText: 'Start' }));
     } else {
       this.setState(() => ({ currentTimerValue: currentTimerValue - 1 }));
@@ -153,9 +151,7 @@ class Timer extends React.Component<null, State> {
   };
 
   render() {
-    const {
-      startTimerValue, timerStatus, currentTimerValue, UIStartButtonText,
-    } = this.state;
+    const { startTimerValue, timerStatus, currentTimerValue, UIStartButtonText } = this.state;
 
     return (
       <div>

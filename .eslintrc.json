@@ -1,7 +1,13 @@
 {
-  "extends": ["airbnb"],
+  "extends": [
+    "airbnb",
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/recommended",
+    "prettier/@typescript-eslint",
+    "plugin:prettier/recommended"
+  ],
   "plugins": ["react"],
-  "parser": "babel-eslint",
+  "parser": "@typescript-eslint/parser",
   "env": {
     "browser": true,
     "jest": true
@@ -15,7 +21,7 @@
     "jsx-a11y/href-no-hash": ["off"],
     "react/jsx-props-no-spreading": ["off"],
     "curly": "error",
-    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx", ".tsx"] }]
   },
   "settings": {
     "react": {
