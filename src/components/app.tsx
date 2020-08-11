@@ -1,12 +1,14 @@
-import React from 'react';
+import * as React from 'react';
 import { Tabs } from 'antd';
-import Timer from './timer';
-import Countdown from './countdown';
+// @ts-ignore
+import Timer from './timer/index.tsx';
+// @ts-ignore
+import Countdown from './countdown/index.tsx';
 import 'antd/dist/antd.css';
 
 const { TabPane } = Tabs;
 
-const App = () => (
+const App: React.FC = () => (
   <Tabs defaultActiveKey="1">
     <TabPane tab="Timer" key="1">
       <Timer />

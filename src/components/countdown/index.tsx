@@ -1,35 +1,45 @@
-import React from 'react';
+import * as React from 'react';
 import CountdownControlPanel from './control-panel';
 import CountdownResult from './result-panel';
 import CountdownControlButtons from './control-buttons';
-import timerDoneSignal from './done-signal.mp3';
 
-const getValidMinutes = (minutes) => {
+const timerDoneSignal = require('./done-signal.mp3');
+
+const getValidMinutes = (minutes: number | string) => {
   if (minutes > 720) return 720;
   if (typeof minutes === 'string') return 0;
   return minutes;
 };
 
-const getValidSeconds = (minutes, seconds) => {
+const getValidSeconds = (minutes: number, seconds: number | string) => {
   if (seconds > 59) return 59;
   if (typeof seconds === 'string' || minutes >= 720) return 0;
   return seconds;
 };
 
-const defaultState = {
+interface State {
+  timerStatus: string,
+  UIStartButtonText: string,
+  startTimerValue: number,
+  currentTimerValue: number,
+}
+
+const defaultState: State = {
   timerStatus: 'disabled', // active, pause, disabled, done
   UIStartButtonText: 'Start', // Start, Continue, Pause
   startTimerValue: 0,
   currentTimerValue: 0,
 };
 
-class Timer extends React.Component {
-  constructor(props) {
+class Timer extends React.Component<null, State> {
+  timerID: any;
+
+  constructor(props: any) {
     super(props);
     this.state = defaultState;
   }
 
-  handleOnMinutesInputChange = (minutes) => {
+  handleOnMinutesInputChange = (minutes: number) => {
     const { startTimerValue } = this.state;
     const seconds = startTimerValue % 60;
 
@@ -41,7 +51,7 @@ class Timer extends React.Component {
     }));
   };
 
-  handleOnSecondsInputChange = (seconds) => {
+  handleOnSecondsInputChange = (seconds: number) => {
     const { startTimerValue } = this.state;
     const minutes = Math.floor(startTimerValue / 60);
 
@@ -52,14 +62,14 @@ class Timer extends React.Component {
     }));
   };
 
-  handleOnSliderChange = (sliderValue) => {
+  handleOnSliderChange = (sliderValue: number) => {
     this.setState(() => ({
       startTimerValue: sliderValue,
       timerStatus: 'disabled',
     }));
   };
 
-  changeTimerStatus = (timerStatus, startTimerValue) => {
+  changeTimerStatus = (timerStatus: string, startTimerValue: number): string => {
     switch (timerStatus) {
       case 'disabled': {
         this.setState(() => ({
@@ -108,7 +118,7 @@ class Timer extends React.Component {
     this.setState(() => ({ ...defaultState }));
   };
 
-  decreaseTimer = () => {
+  decreaseTimer = (): void => {
     const { currentTimerValue, timerStatus } = this.state;
     if (timerStatus !== 'active') {
       this.setTimerPause();

@@ -1,20 +1,29 @@
-import React from 'react';
+import * as React from 'react';
 import TimerResultPanel from './result-panel';
-import TimerControlButtons from './control-buttons';
+// @ts-ignore
+import TimerControlButtons from './control-buttons.tsx';
 
-const defaultState = {
+interface State {
+  timerStatus: string,
+  UIStartButtonText: string,
+  currentTimerValue: number,
+}
+
+const defaultState: State = {
   timerStatus: 'disabled', // active, pause, disabled
   UIStartButtonText: 'Start', // Start, Continue, Pause
   currentTimerValue: 0,
 };
 
-class Timer extends React.Component {
-  constructor(props) {
+class Timer extends React.Component <any, State> {
+  timerID: any;
+
+  constructor(props: any) {
     super(props);
     this.state = defaultState;
   }
 
-  changeTimerStatus = (timerStatus, currentTimerValue) => {
+  changeTimerStatus = (timerStatus: string, currentTimerValue: number): string => {
     switch (timerStatus) {
       case 'disabled': {
         this.setState(() => ({
@@ -55,7 +64,7 @@ class Timer extends React.Component {
     this.setState(() => ({ ...defaultState }));
   };
 
-  increaseTimer = () => {
+  increaseTimer = (): void => {
     const { currentTimerValue, timerStatus } = this.state;
     if (timerStatus !== 'active') {
       this.setTimerPause();
@@ -69,7 +78,7 @@ class Timer extends React.Component {
   };
 
   setTimerActive = () => {
-    const updateTimer = () => {
+    const updateTimer = (): void => {
       this.increaseTimer();
       this.timerID = setTimeout(updateTimer, 1000);
     };
