@@ -17,8 +17,7 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react",
-    "path-intellisense.extensionsToStripOnImport": [".tsx", ".ts"]
+    "jsx": "react"
   },
   "include": [
     "src"

@@ -1,4 +1,4 @@
-export default (currentTimerValue, timerStatus) => {
+export default (currentTimerValue: number, timerStatus: string): string => {
   if (currentTimerValue === 0 && timerStatus === 'done') return 'Done';
   const min = Math.floor(currentTimerValue / 60);
   const sec = currentTimerValue % 60;

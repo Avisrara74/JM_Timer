@@ -1,15 +1,20 @@
 import React from 'react';
-import propTypes from 'prop-types';
 import { Spin } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
+// eslint-disable-next-line import/extensions
 import formatterTime from '../helper';
 import 'antd/dist/antd.css';
 import './result-panel.css';
 
-const TimerResult = (props) => {
+interface Props {
+  currentTimerValue: number;
+  timerStatus: string;
+}
+
+const TimerResult: React.FC<Props> = (props: Props) => {
   const { currentTimerValue, timerStatus } = props;
 
-  const timerValue = formatterTime(currentTimerValue);
+  const timerValue = formatterTime(currentTimerValue, timerStatus);
 
   const spinerClassNames =
     timerStatus === 'active' ? 'timer-spiner' : 'timer-spiner timer-spiner-disabled';
@@ -29,16 +34,6 @@ const TimerResult = (props) => {
       </div>
     </div>
   );
-};
-
-TimerResult.propTypes = {
-  timerStatus: propTypes.string,
-  currentTimerValue: propTypes.number,
-};
-
-TimerResult.defaultProps = {
-  timerStatus: 'disabled',
-  currentTimerValue: 0,
 };
 
 export default TimerResult;

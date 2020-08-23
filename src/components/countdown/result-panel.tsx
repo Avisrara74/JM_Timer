@@ -1,14 +1,20 @@
 import React from 'react';
-import propTypes from 'prop-types';
 import { Progress } from 'antd';
+// eslint-disable-next-line import/extensions
 import getTimerValue from '../helper';
 import 'antd/dist/antd.css';
 
-const CountdownResult = (props) => {
+interface Props {
+  startTimerValue: number;
+  currentTimerValue: number;
+  timerStatus: string;
+}
+
+const CountdownResult: React.FC<Props> = (props: Props) => {
   const { startTimerValue, currentTimerValue, timerStatus } = props;
   const timerValue = getTimerValue(currentTimerValue, timerStatus);
 
-  const percentOfProgress = () => {
+  const percentOfProgress = (): number => {
     if (timerStatus === 'disabled') return 0;
 
     const passedTime = startTimerValue - currentTimerValue;
@@ -27,23 +33,11 @@ const CountdownResult = (props) => {
           type="circle"
           percent={percentOfProgress()}
           strokeColor={strokeColor}
-          format={() => timerValue}
+          format={(): string => timerValue}
         />
       </div>
     </div>
   );
-};
-
-CountdownResult.propTypes = {
-  startTimerValue: propTypes.number,
-  currentTimerValue: propTypes.number,
-  timerStatus: propTypes.string,
-};
-
-CountdownResult.defaultProps = {
-  startTimerValue: 0,
-  currentTimerValue: 0,
-  timerStatus: 'disabled',
 };
 
 export default CountdownResult;

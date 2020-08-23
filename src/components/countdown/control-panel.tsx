@@ -1,9 +1,16 @@
 import React from 'react';
-import propTypes from 'prop-types';
 import { Slider, InputNumber } from 'antd';
 import 'antd/dist/antd.css';
 
-const CountdownControlPanel = (props) => {
+interface Props {
+  startTimerValue: number;
+  timerStatus: string;
+  handleOnMinutesInputChange: any;
+  handleOnSecondsInputChange: any;
+  handleOnSliderChange: any;
+}
+
+const CountdownControlPanel: React.FC<Props> = (props: Props) => {
   const {
     startTimerValue,
     timerStatus,
@@ -50,22 +57,6 @@ const CountdownControlPanel = (props) => {
       </div>
     </div>
   );
-};
-
-CountdownControlPanel.propTypes = {
-  startTimerValue: propTypes.number,
-  timerStatus: propTypes.string,
-  handleOnMinutesInputChange: propTypes.func,
-  handleOnSecondsInputChange: propTypes.func,
-  handleOnSliderChange: propTypes.func,
-};
-
-CountdownControlPanel.defaultProps = {
-  startTimerValue: 0,
-  timerStatus: 'disabled',
-  handleOnMinutesInputChange: null,
-  handleOnSecondsInputChange: null,
-  handleOnSliderChange: null,
 };
 
 export default CountdownControlPanel;

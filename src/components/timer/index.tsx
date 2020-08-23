@@ -1,6 +1,8 @@
 import * as React from 'react';
+// eslint-disable-next-line import/extensions
 import TimerResultPanel from './result-panel';
-import TimerControlButtons from './control-buttons.tsx';
+// eslint-disable-next-line import/extensions
+import TimerControlButtons from './control-buttons';
 
 interface State {
   timerStatus: string;
@@ -14,10 +16,10 @@ const defaultState: State = {
   currentTimerValue: 0,
 };
 
-class Timer extends React.Component<any, State> {
+class Timer extends React.Component<{}, State> {
   timerID: any;
 
-  constructor(props: any) {
+  constructor(props: {}) {
     super(props);
     this.state = defaultState;
   }
@@ -51,7 +53,7 @@ class Timer extends React.Component<any, State> {
     }
   };
 
-  handleOnSwitchTimerStatus = () => {
+  handleOnSwitchTimerStatus = (): void => {
     const { timerStatus, currentTimerValue } = this.state;
     const changeTimerStatus = this.changeTimerStatus(timerStatus, currentTimerValue);
     this.setState(() => ({
@@ -59,7 +61,7 @@ class Timer extends React.Component<any, State> {
     }));
   };
 
-  handleOnResetTimer = () => {
+  handleOnResetTimer = (): void => {
     this.setState(() => ({ ...defaultState }));
   };
 
@@ -72,11 +74,11 @@ class Timer extends React.Component<any, State> {
     this.setState(() => ({ currentTimerValue: currentTimerValue + 1 }));
   };
 
-  setTimerPause = () => {
+  setTimerPause = (): void => {
     clearTimeout(this.timerID);
   };
 
-  setTimerActive = () => {
+  setTimerActive = (): void => {
     const updateTimer = (): void => {
       this.increaseTimer();
       this.timerID = setTimeout(updateTimer, 1000);
@@ -84,11 +86,11 @@ class Timer extends React.Component<any, State> {
     updateTimer();
   };
 
-  componentWillUnmount = () => {
+  componentWillUnmount = (): void => {
     this.setTimerPause();
   };
 
-  render() {
+  render(): React.ReactElement {
     const { timerStatus, currentTimerValue, UIStartButtonText } = this.state;
 
     return (
@@ -96,7 +98,6 @@ class Timer extends React.Component<any, State> {
         <TimerResultPanel currentTimerValue={currentTimerValue} timerStatus={timerStatus} />
         <TimerControlButtons
           UIStartButtonText={UIStartButtonText}
-          currentTimerValue={currentTimerValue}
           handleOnSwitchTimerStatus={this.handleOnSwitchTimerStatus}
           handleOnResetTimer={this.handleOnResetTimer}
         />

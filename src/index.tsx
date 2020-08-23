@@ -1,6 +1,7 @@
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
-import App from './components/app.tsx';
+import React from 'react';
+import ReactDOM from 'react-dom';
+// eslint-disable-next-line import/extensions
+import App from './components/app';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
 
