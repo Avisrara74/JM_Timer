@@ -16,8 +16,10 @@ const defaultState: State = {
   currentTimerValue: 0,
 };
 
+type ButtonEvent = React.MouseEvent<HTMLButtonElement>;
+
 class Timer extends React.Component<{}, State> {
-  timerID: any;
+  timerID: number | undefined;
 
   constructor(props: {}) {
     super(props);
@@ -81,7 +83,7 @@ class Timer extends React.Component<{}, State> {
   setTimerActive = (): void => {
     const updateTimer = (): void => {
       this.increaseTimer();
-      this.timerID = setTimeout(updateTimer, 1000);
+      this.timerID = window.setTimeout(updateTimer, 1000);
     };
     updateTimer();
   };

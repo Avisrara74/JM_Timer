@@ -35,7 +35,7 @@
       "pragma": "React",
       "version": "detect"
     },
-    "import/extensions": [".js",".jsx",".ts",".tsx", ".mp3"],
+    "import/extensions": [".js",".jsx",".ts",".tsx"],
     "import/parsers": {
       "@typescript-eslint/parser": [".ts",".tsx"]
     },

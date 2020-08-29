@@ -5,7 +5,8 @@ import CountdownControlPanel from './control-panel';
 import CountdownResult from './result-panel';
 // eslint-disable-next-line import/extensions
 import CountdownControlButtons from './control-buttons';
-
+// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+// @ts-ignore
 import timerDoneSignalSrc from './done-signal.mp3';
 
 const getValidMinutes = (minutes: number | string): number => {
@@ -35,14 +36,14 @@ const defaultState: State = {
 };
 
 class Timer extends React.Component<{}, State> {
-  timerID: any;
+  timerID: number | undefined;
 
-  constructor(props: object) {
+  constructor(props: {}) {
     super(props);
     this.state = defaultState;
   }
 
-  handleOnMinutesInputChange = (minutes: number): void => {
+  handleOnMinutesInputChange = (minutes: string | number): void => {
     const { startTimerValue } = this.state;
     const seconds = startTimerValue % 60;
 
@@ -54,7 +55,7 @@ class Timer extends React.Component<{}, State> {
     }));
   };
 
-  handleOnSecondsInputChange = (seconds: number): void => {
+  handleOnSecondsInputChange = (seconds: string | number): void => {
     const { startTimerValue } = this.state;
     const minutes = Math.floor(startTimerValue / 60);
 
@@ -65,9 +66,9 @@ class Timer extends React.Component<{}, State> {
     }));
   };
 
-  handleOnSliderChange = (sliderValue: number): void => {
+  handleOnSliderChange = (value: number): void => {
     this.setState(() => ({
-      startTimerValue: sliderValue,
+      startTimerValue: value,
       timerStatus: 'disabled',
     }));
   };
@@ -146,7 +147,7 @@ class Timer extends React.Component<{}, State> {
   setTimerActive = (): void => {
     const updateTimer = (): void => {
       this.decreaseTimer();
-      this.timerID = setTimeout(updateTimer, 1000);
+      this.timerID = window.setTimeout(updateTimer, 1000);
     };
     updateTimer();
   };

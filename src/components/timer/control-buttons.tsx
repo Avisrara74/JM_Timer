@@ -3,8 +3,8 @@ import { Button } from 'antd';
 import 'antd/dist/antd.css';
 
 interface Props {
-  handleOnSwitchTimerStatus: any;
-  handleOnResetTimer: any;
+  handleOnSwitchTimerStatus: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  handleOnResetTimer: (event: React.MouseEvent<HTMLButtonElement>) => void;
   UIStartButtonText: string;
 }
 

@@ -5,9 +5,9 @@ import 'antd/dist/antd.css';
 interface Props {
   startTimerValue: number;
   timerStatus: string;
-  handleOnMinutesInputChange: any;
-  handleOnSecondsInputChange: any;
-  handleOnSliderChange: any;
+  handleOnMinutesInputChange: (value: string | number) => void;
+  handleOnSecondsInputChange: (value: string | number) => void;
+  handleOnSliderChange: (value: number) => void;
 }
 
 const CountdownControlPanel: React.FC<Props> = (props: Props) => {
